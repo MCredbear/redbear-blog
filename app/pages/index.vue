@@ -17,7 +17,7 @@
       </template>
       <UPageList class="mt-8">
         <UBlogPost class="mb-5" v-for="article in articles" :key="article.id" :date="article.date"
-          :title="article.title" :description="article.description" :to="article.stem" :badge="article.meta.tag"
+            :title="article.title" :description="article.description" :to="article.stem" :badge="article.meta.tag"
           target="_blank" />
       </UPageList>
     </UPage>

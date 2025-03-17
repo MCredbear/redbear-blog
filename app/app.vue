@@ -14,11 +14,11 @@ const sideNavigation = ref([
     children: [
       {
         title: '编程',
-        path: '#programing',
+        path: '/#programing',
       },
       {
         title: '其它',
-        path: '#others',
+        path: '/#others',
       },
     ],
   },
