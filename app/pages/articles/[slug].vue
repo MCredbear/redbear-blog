@@ -7,18 +7,19 @@
         <UPageAside>
           <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15">
             <UContentNavigation :navigation="sideNavigation" highlight highlight-color="primary" color="primary"
-              variant="pill"/>
-            </UCard>
+              variant="pill" />
+          </UCard>
         </UPageAside>
       </template>
       <template #right />
 
       <UCard class="bg-(--ui-bg)/75 backdrop-blur mt-8">
-        <div v-if="markdownText" class="prose dark:prose-invert" v-html="renderMarkdown(markdownText)" />
+        <ContentRenderer class="prose dark:prose-invert" :value="markdown" />
+        <!-- <div v-if="markdownText" class="prose dark:prose-invert" v-html="renderMarkdown(markdownText)" />
         <div v-else class="grid gap-2">
           <USkeleton class="h-4 w-[250px]" />
           <USkeleton class="h-4 w-[200px]" />
-        </div>
+        </div> -->
       </UCard>
     </UPage>
   </div>
@@ -26,52 +27,56 @@
 
 
 <script setup>
-import MarkdownIt from 'markdown-it';
-import frontMatter from 'markdown-it-front-matter';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark.css';
+// import MarkdownIt from 'markdown-it';
+// import frontMatter from 'markdown-it-front-matter';
+// import hljs from 'highlight.js';
+// import 'highlight.js/styles/atom-one-dark.css';
 
 const sideNavigation = inject('sideNavigation');
 
 const slug = useRoute().params.slug;
 
-const markdownText = ref('');
+// const markdownText = ref('');
 
-const md = new MarkdownIt({
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(lang, str).value;
-      } catch (__) { }
-    }
+// const md = new MarkdownIt({
+//   highlight: function (str, lang) {
+//     if (lang && hljs.getLanguage(lang)) {
+//       try {
+//         return hljs.highlight(lang, str).value;
+//       } catch (__) { }
+//     }
 
-    return '';
-  }
-});
+//     return '';
+//   }
+// });
 
-md.use(frontMatter, fm => { });
+// md.use(frontMatter, fm => { });
 
-const fetchMarkdown = async (url) => {
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const text = await response.text();
-      markdownText.value = text;
-    } else {
-      console.error('Failed to fetch Markdown file:', response.status);
-    }
-  } catch (error) {
-    console.error('Error fetching Markdown:', error);
-  }
-};
+// const fetchMarkdown = async (url) => {
+//   try {
+//     const response = await fetch(url);
+//     if (response.ok) {
+//       const text = await response.text();
+//       markdownText.value = text;
+//     } else {
+//       console.error('Failed to fetch Markdown file:', response.status);
+//     }
+//   } catch (error) {
+//     console.error('Error fetching Markdown:', error);
+//   }
+// };
 
-const renderMarkdown = (text) => {
-  return md.render(text);
-};
+// const renderMarkdown = (text) => {
+//   return md.render(text);
+// };
 
-onMounted(() => {
-  const markdownUrl = `/articles/${slug}.md`;
-  fetchMarkdown(markdownUrl);
+// onMounted(() => {
+//   const markdownUrl = `/articles/${slug}.md`;
+//   fetchMarkdown(markdownUrl);
+// });
+
+const { data: markdown } = await useAsyncData('markdown', async () => {
+  return queryCollection('blog').where('stem', '==', `articles/${slug}`).first();
 });
 
 </script>
