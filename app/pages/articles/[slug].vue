@@ -14,7 +14,7 @@
       <template #right />
 
       <UCard class="bg-(--ui-bg)/75 backdrop-blur mt-8">
-        <ContentRenderer class="prose dark:prose-invert" :value="markdown" />
+        <ContentRenderer class="prose dark:prose-invert max-w-screen" :value="markdown" />
         <!-- <div v-if="markdownText" class="prose dark:prose-invert" v-html="renderMarkdown(markdownText)" />
         <div v-else class="grid gap-2">
           <USkeleton class="h-4 w-[250px]" />
