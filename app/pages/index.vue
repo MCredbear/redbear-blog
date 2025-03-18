@@ -27,7 +27,10 @@
 <script setup>
 const sideNavigation = inject('sideNavigation');
 
-onMounted(() => {
+const articles = ref([]);
+
+onMounted(async () => {
+  articles.value = await queryCollection('blog').order("date", "DESC").select('title','description','date','meta','stem').all();
   window.addEventListener('hashchange', async () => {
     articles.value = await queryCollection('blog').order("date", "DESC").select('title','description','date','meta','stem').all();
     if (window.location.hash == '#programing') {
@@ -38,8 +41,5 @@ onMounted(() => {
   });
 });
 
-const { data: articles } = await useAsyncData("articles", async () => {
-  return queryCollection('blog').order("date", "DESC").select('title','description','date','meta','stem').all();
-})
 
 </script>

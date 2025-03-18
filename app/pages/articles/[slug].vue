@@ -27,6 +27,21 @@
 
 
 <script setup>
+const slug = useRoute().params.slug
+
+// const markdown = ref(null);
+
+// onMounted(async () => {
+//   markdown.value = await queryCollection('blog').path(`/articles/${slug}`).first();
+// });
+
+
+const { data: markdown } = await useAsyncData(`articles-${slug}`, async () => {
+  console.log('slug:', slug);
+  console.log(await queryCollection('blog').where('stem', '==', `articles/${slug}`));
+  return queryCollection('blog').where('stem', '==', `articles/${slug}`).first();
+})
+
 // import MarkdownIt from 'markdown-it';
 // import frontMatter from 'markdown-it-front-matter';
 // import hljs from 'highlight.js';
@@ -34,7 +49,7 @@
 
 const sideNavigation = inject('sideNavigation');
 
-const slug = useRoute().params.slug;
+// const slug = useRoute().params.slug;
 
 // const markdownText = ref('');
 
@@ -74,9 +89,5 @@ const slug = useRoute().params.slug;
 //   const markdownUrl = `/articles/${slug}.md`;
 //   fetchMarkdown(markdownUrl);
 // });
-
-const { data: markdown } = await useAsyncData('markdown', async () => {
-  return queryCollection('blog').where('stem', '==', `articles/${slug}`).first();
-});
 
 </script>

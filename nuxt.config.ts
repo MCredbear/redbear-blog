@@ -1,16 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // https://nuxt.com/modules
-  modules: [
-    '@nuxthub/core',
-    '@nuxt/eslint',
-    '@nuxt/content',
-    '@nuxt/fonts',
-    '@nuxt/icon',
-    // '@nuxt/image',
-    '@nuxt/scripts',
-    '@nuxt/ui-pro',
-  ],
+  modules: ['@nuxthub/core', '@nuxt/eslint', '@nuxt/content', '@nuxt/fonts', '@nuxt/icon', // '@nuxt/image',
+  '@nuxt/scripts', '@nuxt/ui-pro'],
 
   // https://devtools.nuxt.com
   devtools: { enabled: true },
@@ -35,6 +27,10 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    "/": { prerender: true },
+  },
+
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
   runtimeConfig: {
     public: {
@@ -45,7 +41,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-07-30',
 
   // https://hub.nuxt.com/docs/getting-started/installation#options
-  hub: {},
+  hub: { database: true },
 
   // https://eslint.nuxt.com
   // eslint: {
