@@ -9,5 +9,5 @@ export default defineContentConfig({
         date: z.string()
       })
     })
-  }
+  },
 })

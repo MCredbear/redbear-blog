@@ -17,7 +17,7 @@
       </template>
       <UPageList class="mt-8">
         <UBlogPost class="mb-5" v-for="article in articles" :key="article.id" :date="article.date"
-            :title="article.title" :description="article.description" :to="article.stem" :badge="article.meta.tag"
+            :title="article.title" :description="article.description" :to="article.path" :badge="article.meta.tag"
           target="_blank" />
       </UPageList>
     </UPage>
@@ -30,9 +30,9 @@ const sideNavigation = inject('sideNavigation');
 const articles = ref([]);
 
 onMounted(async () => {
-  articles.value = await queryCollection('blog').order("date", "DESC").select('title','description','date','meta','stem').all();
+  articles.value = await queryCollection('blog').order("date", "DESC").select('title','description','date','meta','path').all();
   window.addEventListener('hashchange', async () => {
-    articles.value = await queryCollection('blog').order("date", "DESC").select('title','description','date','meta','stem').all();
+    articles.value = await queryCollection('blog').order("date", "DESC").select('title','description','date','meta','path').all();
     if (window.location.hash == '#programing') {
       articles.value = articles.value.filter(article => article.meta.tag == 'Programing');
     } else if (window.location.hash == '#others') {

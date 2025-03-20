@@ -11,6 +11,9 @@ export default defineNuxtConfig({
 
   content: {
     build: {
+      transformers: [
+        './transformers/override-path',
+      ],
       markdown: {
         highlight: {
           theme: {

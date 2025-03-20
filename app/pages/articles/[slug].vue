@@ -37,9 +37,8 @@ const slug = useRoute().params.slug
 
 
 const { data: markdown } = await useAsyncData(`articles-${slug}`, async () => {
-  console.log('slug:', slug);
-  console.log(await queryCollection('blog').where('stem', '==', `articles/${slug}`));
-  return queryCollection('blog').where('stem', '==', `articles/${slug}`).first();
+  // return queryCollection('blog').where('stem', '==', `articles/${slug}`).first();
+  return queryCollection('blog').path(`articles/${slug}`).first();
 })
 
 // import MarkdownIt from 'markdown-it';
