@@ -26,17 +26,17 @@ tag: Programing
 
 我用 **创建快捷方式 (com.x7890.shortcutcreator)** *（用 Anywhere- (com.absinthe.anywhere_)* 也行） 看了一下它的 Activity 列表，里面有一个 **新工具面板 (com.dianping.debug.activity.NewDebugActivity)** ，打开之和能看到许多好玩的调试选项，但最重要的是侧边吸附的调试菜单里有一个 **Layout** 按钮，点一下之后会有一个 **选择View** 按钮。
 
-![](/articles/images/Screenshot_20250315-185801_大众点评.png)
-![](/articles/images/Screenshot_20250315-190011_大众点评.png)
+![](./images/Screenshot_20250315-185801_大众点评.png)
+![](./images/Screenshot_20250315-190011_大众点评.png)
 
 这样，就可以在大众点评的页面里直接选中查看我们想要的组件：
 
-![](/articles/images/Screenshot_20250315-190350_大众点评.png)
-![](/articles/images/Screenshot_20250315-190403_大众点评.png)
+![](./images/Screenshot_20250315-190350_大众点评.png)
+![](./images/Screenshot_20250315-190403_大众点评.png)
 
 点击 **视图层级** 还能查看整个页面的组件树：
 
-![](/articles/images/Screenshot_20250315-190423_大众点评.png)
+![](./images/Screenshot_20250315-190423_大众点评.png)
 
 相信你看到上图中的 `com.dianping.imagemanager.DPImageView` 和组件树中的类名已经知道该怎么做了。
 
