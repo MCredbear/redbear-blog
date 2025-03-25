@@ -1,7 +1,11 @@
 ---
 date: 2020-10-04
 description: 常用于没有开启独显直连的游戏本
-tag: Programing
+categories:
+  - Programing
+tags:
+  - Linux
+  - Nvidia
 ---
 
 # Linux 通过环境变量使用 Nvidia 显卡（Prime 方案）
@@ -39,21 +43,29 @@ sudo apt install nvidia-driver nvidia-vulkan-common nvidia-vulkan-icd nvidia-vaa
 ## 配置环境变量
 
 现在你已经可以通过在命令前加上
+
 ```
 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only
 ```
+
 来使用 Nvidia 显卡运行命令，例如：
+
 ```
 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only glxgears -info
 ```
+
 如果你使用的是 Bash，那么你可以在 ~/.bashrc 文件的最后加上一行：
+
 ```
 alias optirun='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only'
 ```
+
 重新登录后就可以直接使用 optirun 代替冗长的环境变量。
+
 ```
 optirun glxgears -info
 ```
+
 你也可以极端一点把这段环境变量添加到 `/etc/profile` 中，所有应用程序均使用 Nvidia 显卡进行渲染，但是这么做会造成一些渲染错误。
 
 ## 可能遇到的问题
@@ -63,6 +75,7 @@ optirun glxgears -info
 - #### 编译器版本不对
 
   删除 /usr/bin/gcc 和 /usr/bin/g++ 再重新创建需要的编译器软链接，例如：
+
   ```
   sudo ln -s /usr/bin/gcc-11 /usr/bin/gcc
   sudo ln -s /usr/bin/g++-11 /usr/bin/g++
@@ -70,20 +83,22 @@ optirun glxgears -info
 
 - #### 源码有错误
 
-  *这种情况通常是因为 Nvidia 驱动和 Linux 内核没用同步更新。*
-  
+  _这种情况通常是因为 Nvidia 驱动和 Linux 内核没用同步更新。_
+
   **在进行以下步骤前，建议先卸载 nvidia-driver 以避免其它软件包安装失败。**
-  
+
   - 如果你使用的是官方内核：
-    
+
     ```
     sudo apt install linux-image-amd64 linux-headers-amd64
     ```
+
     安装完毕之后需要重启你的电脑，再安装 Nvidia 显卡驱动，应该可以解决绝大部分问题。
-  
+
   - 如果你使用的是第三方内核：
-    
+
     回退显卡驱动版本，然后等待两个星期再进行更新。我用 Liquorix 内核时就会遇到这种情况。
 
 ### 使用 Nvidia 独显连接外部显示器时，可能会遇到选不了更高的分辨率和帧数的问题：
+
 往你的 grub 的 linux 内核参数上添加 `nvidia_drm.modeset=1`

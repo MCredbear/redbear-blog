@@ -1,14 +1,23 @@
 ---
 date: 2025-03-17
-description: 并非完美，解决不了弹人机验证
-tag: Programing
+description:
+categories:
+  - Programing
+tags:
+  - Lsposed
+  - Android
+  - 安卓
+  - 逆向
+  - Hook
+  - 美团
+  - 大众点评
 ---
 
 # Hook 美团大众点评的 Picasso 框架，制作大众点评爬虫
 
-*解决不了的问题：大众点评每隔一段时间就会弹人机验证。*
+_解决不了的问题：大众点评每隔一段时间就会弹人机验证。_
 
-*大众点评的页面会热更新，所以 Hook 代码也得跟着更新，但是我的老师开摆了所以我就不更新代码了。*
+_大众点评的页面会热更新，所以 Hook 代码也得跟着更新，但是我的老师开摆了所以我就不更新代码了。_
 
 ## 前言（要省流的直接跳过）
 
@@ -24,7 +33,7 @@ tag: Programing
 
 大众点评的安卓客户端没加壳，里面的类名方法名都一目了然。
 
-我用 **创建快捷方式 (com.x7890.shortcutcreator)** *（用 Anywhere- (com.absinthe.anywhere_)* 也行） 看了一下它的 Activity 列表，里面有一个 **新工具面板 (com.dianping.debug.activity.NewDebugActivity)** ，打开之和能看到许多好玩的调试选项，但最重要的是侧边吸附的调试菜单里有一个 **Layout** 按钮，点一下之后会有一个 **选择View** 按钮。
+我用 **创建快捷方式 (com.x7890.shortcutcreator)** _（用 Anywhere- (com.absinthe.anywhere\_)_ 也行） 看了一下它的 Activity 列表，里面有一个 **新工具面板 (com.dianping.debug.activity.NewDebugActivity)** ，打开之和能看到许多好玩的调试选项，但最重要的是侧边吸附的调试菜单里有一个 **Layout** 按钮，点一下之后会有一个 **选择 View** 按钮。
 
 ![](./Screenshot_20250315-185801_大众点评.png)
 ![](./Screenshot_20250315-190011_大众点评.png)
@@ -42,11 +51,12 @@ tag: Programing
 
 ## 编写 Lsposed 模块进行 Hook
 
-*我当时的完整代码: [FuckLogan](https://github.com/MCredbear/FuckLogan) （为什么叫 FuckLogan：**新工具面板**里底栏监控选项卡点进去能看到个 Logan 日志上报，我们当时以为这个 Debug 面板叫 Logan）*
+_我当时的完整代码: [FuckLogan](https://github.com/MCredbear/FuckLogan) （为什么叫 FuckLogan：**新工具面板**里底栏监控选项卡点进去能看到个 Logan 日志上报，我们当时以为这个 Debug 面板叫 Logan）_
 
 在编写 Hook 代码前，我们得先看一下大众点评的代码。
 
 以`com.dianping.picasso.model.TextModel`这个类为例：
+
 ```java
 //
 // Decompiled by Jadx - 600ms
@@ -302,6 +312,7 @@ public class TextModel extends PicassoModel implements PicassoSizeToFitInterface
 当然我们不可能每个组件都提取，我们可以根据组件之间的布局关系来判断我们要提取的组件是哪个。
 
 举个例子，假设我们要提取某个页面下的用户评论，而展示用户评论的组件的布局是这样的：
+
 ```
 GroupModel （横向）
 ├── ImageModel （用户头像）
@@ -311,10 +322,10 @@ GroupModel （横向）
        └── TextModel （评论日期）
 ```
 
-*`GroupModel`的作用差不多是 Column 或 Row，它有一个`subviews`属性用于存储子组件*
+_`GroupModel`的作用差不多是 Column 或 Row，它有一个`subviews`属性用于存储子组件_
 
-如果某个`GroupModel`有`ImageModel`和`GroupModel`这两个子组件，且子组件中的`GroupModel`有3个`TextModel`，则说明第2个`TextModel`是我们要提取的用户评论。
+如果某个`GroupModel`有`ImageModel`和`GroupModel`这两个子组件，且子组件中的`GroupModel`有 3 个`TextModel`，则说明第 2 个`TextModel`是我们要提取的用户评论。
 
 具体的 Hook 代码请查看[FuckLogan](https://github.com/MCredbear/FuckLogan)
 
-*顺带一提，从反编译出的代码上看，Picasso 的 ListModel 每次往底部添加新元素都要重构一遍一整个 list，也不知道这种代码能正常运行是 Art 虚拟机优化太好了还是处理器性能太好了还是反编译出的代码不对:D*
+_顺带一提，从反编译出的代码上看，Picasso 的 ListModel 每次往底部添加新元素都要重构一遍一整个 list，也不知道这种代码能正常运行是 Art 虚拟机优化太好了还是处理器性能太好了还是反编译出的代码不对:D_

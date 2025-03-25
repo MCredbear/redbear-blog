@@ -12,10 +12,13 @@
       <UPlaceHolder />
 
     </template>
-    <UPageList class="mt-8">
-      <UBlogPost class="mb-5" v-for="article in articles" :key="article.id" :date="article.date" :title="article.title"
-        :description="article.description" :to="article.path" :badge="article.meta.tag" target="_blank" />
-    </UPageList>
+    <UPageBody>
+      <UBlogPosts class="mt-8" orientation="vertical">
+        <UBlogPosts class="mb-5" v-for="article in articles" :key="article.id" :date="article.date"
+          :title="article.title" :description="article.description" :to="article.path"
+          :badge="article.meta.categories.join(' & ')" target="_blank" />
+      </UBlogPosts>
+    </UPageBody>
   </UPage>
 </template>
 
@@ -49,19 +52,23 @@ const sideNavigation = ref([
   },
 ]);
 
-const articles = ref([]);
+// const articles = ref([]);
 
-onMounted(async () => {
-  articles.value = await queryCollection('article').order("date", "DESC").select('title', 'description', 'date', 'meta', 'path').all();
-  // window.addEventListener('hashchange', async () => {
-  //   articles.value = await queryCollection('article').order("date", "DESC").select('title', 'description', 'date', 'meta', 'path').all();
-  //   if (window.location.hash == '#programing') {
-  //     articles.value = articles.value.filter(article => article.meta.tag == 'Programing');
-  //   } else if (window.location.hash == '#others') {
-  //     articles.value = articles.value.filter(article => article.meta.tag != 'Programing');
-  //   }
-  // });
-});
+const { data: articles } = await useAsyncData(`index`, async () => {
+  return queryCollection('article').order("date", "DESC").select('title', 'description', 'date', 'meta', 'path').all();
+})
+
+// onMounted(async () => {
+//   articles.value = await queryCollection('article').order("date", "DESC").select('title', 'description', 'date', 'meta', 'path').all();
+//   // window.addEventListener('hashchange', async () => {
+//   //   articles.value = await queryCollection('article').order("date", "DESC").select('title', 'description', 'date', 'meta', 'path').all();
+//   //   if (window.location.hash == '#programing') {
+//   //     articles.value = articles.value.filter(article => article.meta.tag == 'Programing');
+//   //   } else if (window.location.hash == '#others') {
+//   //     articles.value = articles.value.filter(article => article.meta.tag != 'Programing');
+//   //   }
+//   // });
+// });
 
 
 </script>
