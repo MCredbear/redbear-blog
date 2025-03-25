@@ -6,7 +6,7 @@ export default defineTransformer({
   transform(file) {
     return {
       ...file,
-      path: `articles/${file.title}`
+      path: `article/${file.title}`
     }
   },
 })

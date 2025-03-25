@@ -24,7 +24,7 @@ const slug = useRoute().params.slug
 // const sideNavigation = ref([]);
 
 const { data: markdown } = await useAsyncData(`articles-${slug}`, async () => {
-  const result = await queryCollection('article').path(`articles/${slug}`).first();
+  const result = await queryCollection('article').path(`article/${slug}`).first();
 
   // function convertNode(node) {
   //   const result = {

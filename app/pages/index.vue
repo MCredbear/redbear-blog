@@ -9,7 +9,7 @@
       </UPageAside>
     </template>
     <template #right>
-      <UPlaceHolder />
+      <PlaceHolder />
 
     </template>
     <UPageBody>
