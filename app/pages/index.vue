@@ -1,27 +1,22 @@
 <template>
-  <div
-    style="background-image: url('/usagi.jpg'); background-size: cover; background-position: center; height: 100vh; width: 100vw; overflow-y: auto;">
-    <UHeader title="MCredbear 的神必地带" />
-    <UPage>
-      <template #left>
-        <UPageAside>
-          <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15">
-            <UContentNavigation :navigation="sideNavigation" highlight highlight-color="primary" color="primary"
-              variant="pill" />
-          </UCard>
-        </UPageAside>
-      </template>
-      <template #right>
-        <UPlaceHolder />
+  <UPage class="min-h-screen">
+    <template #left>
+      <UPageAside>
+        <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15">
+          <UContentNavigation :navigation="sideNavigation" highlight highlight-color="primary" color="primary"
+            variant="pill" />
+        </UCard>
+      </UPageAside>
+    </template>
+    <template #right>
+      <UPlaceHolder />
 
-      </template>
-      <UPageList class="mt-8">
-        <UBlogPost class="mb-5" v-for="article in articles" :key="article.id" :date="article.date"
-          :title="article.title" :description="article.description" :to="article.path" :badge="article.meta.tag"
-          target="_blank" />
-      </UPageList>
-    </UPage>
-  </div>
+    </template>
+    <UPageList class="mt-8">
+      <UBlogPost class="mb-5" v-for="article in articles" :key="article.id" :date="article.date" :title="article.title"
+        :description="article.description" :to="article.path" :badge="article.meta.tag" target="_blank" />
+    </UPageList>
+  </UPage>
 </template>
 
 <script setup>
