@@ -10,7 +10,7 @@
       </UPageAside>
     </template>
     <UPageBody>
-      <UCard class="bg-(--ui-bg)/75 backdrop-blur mt-8 ml-8 mr-8">
+      <UCard class="bg-(--ui-bg)/75 backdrop-blur mt-8 mx-8">
         <ContentRenderer class="prose dark:prose-invert max-w-screen" :value="markdown" />
       </UCard>
     </UPageBody>
@@ -23,7 +23,7 @@ const slug = useRoute().params.slug
 
 // const sideNavigation = ref([]);
 
-const { data: markdown } = await useAsyncData(`articles-${slug}`, async () => {
+const { data: markdown } = await useAsyncData(`article-${slug}`, async () => {
   const result = await queryCollection('article').path(`article/${slug}`).first();
 
   // function convertNode(node) {

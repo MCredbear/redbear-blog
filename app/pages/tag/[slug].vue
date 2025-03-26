@@ -21,7 +21,7 @@
 
     </template>
     <UPageBody>
-      <UBlogPosts orientation="vertical">
+      <UBlogPosts orientation="vertical" class="mx-8">
         <UBlogPost v-for="article in articles" :key="article.id" :date="article.date" :title="article.title"
           :description="article.description" :to="article.path" :badge="article.meta.categories.join(' & ')"
           target="_blank" />

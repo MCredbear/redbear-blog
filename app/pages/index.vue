@@ -15,17 +15,23 @@
             <UButton v-for="(tag, index) in tags" :key="index" :label="tag" :to="`/tag/${tag}`" color="neutral" variant="link" />
         </UCard>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
+            <template #header>
+                归档
+            </template>
+            <UButton v-for="(archive, index) in archives" :key="index" :label="archive" :to="`/archive/${archive}`" color="neutral" variant="link" />
+        </UCard>
+        <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
           <UContentNavigation :navigation="sideNavigation" highlight highlight-color="primary" color="primary"
             variant="pill" />
         </UCard>
       </UPageAside>
     </template>
     <template #right>
-      <PlaceHolder />
+      <Placeholder />
 
     </template>
     <UPageBody>
-      <UBlogPosts orientation="vertical">
+      <UBlogPosts orientation="vertical" class="mx-8">
         <UBlogPost v-for="article in articles" :key="article.id" :date="article.date" :title="article.title"
           :description="article.description" :to="article.path" :badge="article.meta.categories.join(' & ')"
           target="_blank" />
@@ -77,6 +83,13 @@ const{ data: tags } = await useAsyncData(`tags`, async () => {
     return queryCollection('article').select('meta').all().then(articles => {
         const tags = articles.flatMap(article => article.meta.tags);
         return Array.from(new Set(tags));
+    });
+})
+
+const{ data: archives } = await useAsyncData(`archives`, async () => {
+  return queryCollection('article').order("date", "DESC").select('date').all().then(articles => {
+    console.log("date: ",articles);
+        return articles.map(article => article.date.split('-')[0]);
     });
 })
 

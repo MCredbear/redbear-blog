@@ -47,10 +47,10 @@ const{ data: tags } = await useAsyncData(`tags`, async () => {
     });
 })
 
-const { data: articles } = await useAsyncData(`category-${slug}`, async () => {
+const { data: articles } = await useAsyncData(`archive-${slug}`, async () => {
     let queryResult = await queryCollection('article').order("date", "DESC").select('title', 'description', 'date', 'meta', 'path').all();
 
-    queryResult = queryResult.filter(article => article.meta.categories.includes(slug));
+    queryResult = queryResult.filter(article => article.date.split('-')[0] == slug);
 
     return queryResult;
 })
