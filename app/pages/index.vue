@@ -3,22 +3,31 @@
     <template #left>
       <UPageAside>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15">
-            <template #header>
-                分类
-            </template>
-            <UButton v-for="(category, index) in categories" :key="index" :label="category" :to="`/category/${category}`" color="neutral" variant="link" />
+          <template #header>
+            <UButton icon="i-lucide-layout-grid" color="neutral" variant="subtile" to="/categories">  
+              分类
+            </UButton>
+          </template>
+          <UButton v-for="(category, index) in categories" :key="index" :label="category" :to="`/category/${category}`"
+            color="neutral" variant="link" />
         </UCard>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
-            <template #header>
-                标签
-            </template>
-            <UButton v-for="(tag, index) in tags" :key="index" :label="tag" :to="`/tag/${tag}`" color="neutral" variant="link" />
+          <template #header>
+            <UButton icon="i-lucide-tags" color="neutral" variant="subtile" to="/tags">  
+              标签
+            </UButton>
+          </template>
+          <UButton v-for="(tag, index) in tags" :key="index" :label="tag" :to="`/tag/${tag}`" color="neutral"
+            variant="link" />
         </UCard>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
-            <template #header>
-                归档
-            </template>
-            <UButton v-for="(archive, index) in archives" :key="index" :label="archive" :to="`/archive/${archive}`" color="neutral" variant="link" />
+          <template #header>
+            <UButton icon="i-lucide-archive" color="neutral" variant="subtile" to="/archives">  
+              归档
+            </UButton>
+          </template>
+          <UButton v-for="(archive, index) in archives" :key="index" :label="archive" :to="`/archive/${archive}`"
+            color="neutral" variant="link" />
         </UCard>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
           <UContentNavigation :navigation="sideNavigation" highlight highlight-color="primary" color="primary"
@@ -72,25 +81,25 @@ const sideNavigation = ref([
 
 // const articles = ref([]);
 
-const{ data: categories } = await useAsyncData(`categories`, async () => {
-    return queryCollection('article').select('meta').all().then(articles => {
-        const categories = articles.flatMap(article => article.meta.categories);
-        return Array.from(new Set(categories));
-    });
+const { data: categories } = await useAsyncData(`categories`, async () => {
+  return queryCollection('article').select('meta').all().then(articles => {
+    const categories = articles.flatMap(article => article.meta.categories);
+    return Array.from(new Set(categories));
+  });
 })
 
-const{ data: tags } = await useAsyncData(`tags`, async () => {
-    return queryCollection('article').select('meta').all().then(articles => {
-        const tags = articles.flatMap(article => article.meta.tags);
-        return Array.from(new Set(tags));
-    });
+const { data: tags } = await useAsyncData(`tags`, async () => {
+  return queryCollection('article').select('meta').all().then(articles => {
+    const tags = articles.flatMap(article => article.meta.tags);
+    return Array.from(new Set(tags));
+  });
 })
 
-const{ data: archives } = await useAsyncData(`archives`, async () => {
+const { data: archives } = await useAsyncData(`archives`, async () => {
   return queryCollection('article').order("date", "DESC").select('date').all().then(articles => {
-    console.log("date: ",articles);
-        return articles.map(article => article.date.split('-')[0]);
-    });
+    console.log("date: ", articles);
+    return articles.map(article => article.date.split('-')[0]);
+  });
 })
 
 const { data: articles } = await useAsyncData(`index`, async () => {

@@ -2,6 +2,9 @@
   <UApp>
     <UHeader title="MCredbear 的神必地带">
       <UNavigationMenu :items="navigationMenu" />
+      <template #body>
+        <UNavigationMenu :items="navigationMenu" orientation="vertical" class="-mx-2.5" />
+      </template>
       <template #right>
         <UColorModeButton />
         <UTooltip text="Open on GitHub">
@@ -35,18 +38,22 @@
 const navigationMenu = ref([
   {
     label: "首页",
+    icon: "i-lucide-home",
     to: "/"
   },
   {
     label: "分类",
+    icon: "i-lucide-layout-grid",
     to: "/categories"
   },
   {
     label: "标签",
+    icon: "i-lucide-tags",
     to: "/tags"
   },
   {
     label: "归档",
+    icon: "i-lucide-archive",
     to: "/archives"
   }
 ])
