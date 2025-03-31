@@ -4,7 +4,7 @@
       <UPageAside>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15">
           <template #header>
-            <UButton icon="i-lucide-layout-grid" color="neutral" variant="subtile" to="/categories">  
+            <UButton icon="i-lucide-layout-grid" color="neutral" variant="subtile" to="/categories">
               分类
             </UButton>
           </template>
@@ -13,7 +13,7 @@
         </UCard>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
           <template #header>
-            <UButton icon="i-lucide-tags" color="neutral" variant="subtile" to="/tags">  
+            <UButton icon="i-lucide-tags" color="neutral" variant="subtile" to="/tags">
               标签
             </UButton>
           </template>
@@ -22,7 +22,7 @@
         </UCard>
         <UCard class="bg-(--ui-bg)/75 backdrop-blur ml-15 mt-8">
           <template #header>
-            <UButton icon="i-lucide-archive" color="neutral" variant="subtile" to="/archives">  
+            <UButton icon="i-lucide-archive" color="neutral" variant="subtile" to="/archives">
               归档
             </UButton>
           </template>
@@ -97,8 +97,7 @@ const { data: tags } = await useAsyncData(`tags`, async () => {
 
 const { data: archives } = await useAsyncData(`archives`, async () => {
   return queryCollection('article').order("date", "DESC").select('date').all().then(articles => {
-    console.log("date: ", articles);
-    return articles.map(article => article.date.split('-')[0]);
+    return Array.from(new Set(articles.map(article => article.date.split('-')[0])));
   });
 })
 
