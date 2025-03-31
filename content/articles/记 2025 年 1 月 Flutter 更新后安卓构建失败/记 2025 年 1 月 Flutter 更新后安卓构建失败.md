@@ -1,6 +1,6 @@
 ---
 title: 记 2025 年 1 月 Flutter 更新后安卓构建失败
-description: *省流：JDK 版本要为 11 且不要用 zing JDK
+description: 省流：JDK 版本要为 11 且不要用 zing JDK
 date: 2025-01-04
 categories:
   - Programing
