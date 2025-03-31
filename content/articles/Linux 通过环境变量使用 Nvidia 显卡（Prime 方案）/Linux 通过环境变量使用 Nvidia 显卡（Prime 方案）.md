@@ -1,6 +1,7 @@
 ---
-date: 2020-10-04
+title: Linux 通过环境变量使用 Nvidia 显卡（Prime 方案）
 description: 常用于没有开启独显直连的游戏本
+date: 2020-10-04
 categories:
   - Programing
 tags:
