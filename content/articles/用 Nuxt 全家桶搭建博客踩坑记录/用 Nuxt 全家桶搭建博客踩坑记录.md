@@ -159,7 +159,7 @@ content/
           const newFilePath = path.join(outputDir, newFileName);
 
           if (!fs.existsSync(newFilePath)) {
-            fs.copyFileSync(filePath, newFilePath);
+            fs.symlinkSync(filePath, newFilePath);
           }
         }
 
